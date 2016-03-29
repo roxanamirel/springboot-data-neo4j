@@ -1,7 +1,5 @@
 package fi.gapps.intra.thesis;
 
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
 import org.springframework.boot.SpringApplication;
@@ -31,6 +29,7 @@ public class App extends Neo4jConfiguration {
 	public App() {
 		System.setProperty("username", "neo4j");
 		System.setProperty("password", "root");
+		System.setProperty("server.port", "8081");
 	}
 
 	@Override
@@ -54,9 +53,4 @@ public class App extends Neo4jConfiguration {
 		SpringApplication.run(App.class, args);
 	}
 	
-//	@Bean(destroyMethod = "shutdown")
-//	public GraphDatabaseService graphDatabaseService() {
-//	    return new GraphDatabaseFactory().newEmbeddedDatabase("default.graphdb");
-//	}
-
 }

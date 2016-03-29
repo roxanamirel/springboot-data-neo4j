@@ -3,28 +3,26 @@ package fi.gapps.intra.thesis.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@NodeEntity
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@NodeEntity (label="User")
 public class Vertex  {
-	
-    @GraphId
 	private Long id;
-    //will be the email address =>unique
 	private String name;
-
-	@Relationship(type = "PAIRS_WITH", direction = "UNDIRECTED")
-    public  Set<Vertex> teammates;
+	private String email;
+	private Long universeUserId;
+	
+	@Relationship(type = "PAIRS_WITH", direction = Relationship.UNDIRECTED)
+    private  Set<Vertex> teammates;
 	
 	
 	public Vertex() {	}
 
-	public Vertex(String name) {
-		this.name = name;
-	}
 
 	public Long getId() {
 		return id;
@@ -42,6 +40,26 @@ public class Vertex  {
 		this.name = name;
 	}
 	
+	public Long getUniverseUserId() {
+		return universeUserId;
+	}
+
+
+	public void setUniverseUserId(Long universeUserId) {
+		this.universeUserId = universeUserId;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
 	public void worksWith(Vertex person) {
         if (teammates == null) {
             teammates = new HashSet<>();
@@ -49,6 +67,50 @@ public class Vertex  {
         teammates.add(person);
     }
 
+	public Vertex( String name) {
+	
+		this.name = name;
+	}
+
+
+	public Set<Vertex> getTeammates() {
+		return teammates;
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((universeUserId == null) ? 0 : universeUserId.hashCode());
+		return result;
+	}
+
+
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Vertex other = (Vertex) obj;
+		if (universeUserId == null) {
+			if (other.universeUserId != null)
+				return false;
+		} else if (!universeUserId.equals(other.universeUserId))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		return true;
+	}
 	
 	
 }

@@ -1,6 +1,5 @@
 package fi.gapps.intra.thesis.controller;
 
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import fi.gapps.intra.thesis.model.Vertex;
 import fi.gapps.intra.thesis.service.VertexService;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/v1/")
 public class GraphController {
 
 	@Autowired
@@ -23,29 +22,21 @@ public class GraphController {
 
 	@Transactional
 	@RequestMapping(value = "vertex", method = RequestMethod.POST, consumes = "application/json")
-	public void addVertex() {
-		Vertex v = new Vertex();
-		v.setName("mueees");
-		vertexService.create(v);
+	public Vertex addVertex(@RequestBody Vertex vertex) {
+		return vertexService.create(vertex);
 	}
-
+	
 	@Transactional(readOnly = true)
-	@RequestMapping(value = "all", method = RequestMethod.GET)
-	public Iterable<Vertex> getVertices() {
+	@RequestMapping(value = "vertex", method = RequestMethod.GET)
+	public Iterable<Vertex> getAllVertices() {
 		return vertexService.findAll();
 	}
 
 	@Transactional(readOnly = true)
-	@RequestMapping(value = "findByName", method = RequestMethod.GET)
-	public Vertex findByName(@PathVariable("name")String name) {
-		return vertexService.findByName(name);
-	}
-
-	@Transactional(readOnly = true)
-	@RequestMapping(value = "findTeammates", method = RequestMethod.GET)
+	@RequestMapping(value = "vertex/teammate", method = RequestMethod.GET)
 	public Set<Vertex> findTeammates(@PathVariable("id")Long id) {
 		Vertex v = vertexService.findById(id);
-		return v.teammates;
+		return v.getTeammates();
 	}
 
 }
