@@ -11,6 +11,8 @@ import fi.gapps.intra.thesis.model.Vertex;
 public interface VertexRepository extends GraphRepository<Vertex> {
 	
 	Vertex findByName(String name);
+	
+	Vertex findByEmail(String email);
 
     List<Vertex> findByTeammatesName(String name);
 

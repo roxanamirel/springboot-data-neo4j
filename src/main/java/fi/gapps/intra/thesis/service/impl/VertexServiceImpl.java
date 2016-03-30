@@ -30,6 +30,11 @@ public class VertexServiceImpl implements VertexService {
 	public Vertex findByName(String name) {
 		return vertexRepository.findByName(name);
 	}
+	
+	@Override
+	public Vertex findByEmail(String email) {
+		return vertexRepository.findByEmail(email);
+	}
 
 	@Override
 	@Transactional

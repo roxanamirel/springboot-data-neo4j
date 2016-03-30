@@ -13,6 +13,8 @@ public interface VertexService {
 	Vertex findById(Long id);
 	
 	Vertex findByName(String name);
+	
+	Vertex findByEmail(String email);
 
 	Iterable<Vertex> findAll();
 }

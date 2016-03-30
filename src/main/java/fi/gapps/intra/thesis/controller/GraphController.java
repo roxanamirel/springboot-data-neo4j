@@ -23,9 +23,18 @@ public class GraphController {
 	@Transactional
 	@RequestMapping(value = "vertex", method = RequestMethod.POST, consumes = "application/json")
 	public Vertex addVertex(@RequestBody Vertex vertex) {
-		return vertexService.create(vertex);
+//		Vertex old = vertexService.findByEmail(vertex.getEmail());
+//		if (old != null) {
+//			for (Vertex v : vertex.getTeammates()) {
+//				old.worksWith(v);
+//			}
+//			return vertexService.create(old);
+//		} else {
+			return vertexService.create(vertex);
+//		}
+
 	}
-	
+
 	@Transactional(readOnly = true)
 	@RequestMapping(value = "vertex", method = RequestMethod.GET)
 	public Iterable<Vertex> getAllVertices() {
@@ -34,7 +43,7 @@ public class GraphController {
 
 	@Transactional(readOnly = true)
 	@RequestMapping(value = "vertex/teammate", method = RequestMethod.GET)
-	public Set<Vertex> findTeammates(@PathVariable("id")Long id) {
+	public Set<Vertex> findTeammates(@PathVariable("id") Long id) {
 		Vertex v = vertexService.findById(id);
 		return v.getTeammates();
 	}

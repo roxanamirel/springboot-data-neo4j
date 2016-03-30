@@ -3,6 +3,7 @@ package fi.gapps.intra.thesis.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
@@ -14,10 +15,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Vertex  {
 	private Long id;
 	private String name;
+	@Index(unique=true)
 	private String email;
+	@Index(unique=true)
 	private Long universeUserId;
 	
-	@Relationship(type = "PAIRS_WITH", direction = Relationship.UNDIRECTED)
+	@Relationship(type = "WORKS_WITH", direction = Relationship.UNDIRECTED)
     private  Set<Vertex> teammates;
 	
 	
