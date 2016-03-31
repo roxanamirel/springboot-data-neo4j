@@ -14,6 +14,6 @@ public interface VertexRepository extends GraphRepository<Vertex> {
 	
 	Vertex findByEmail(String email);
 
-    List<Vertex> findByTeammatesName(String name);
+    //List<Vertex> findByTeammatesName(String name);
 
 }

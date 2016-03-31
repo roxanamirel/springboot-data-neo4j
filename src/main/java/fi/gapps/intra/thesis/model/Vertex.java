@@ -1,7 +1,7 @@
 package fi.gapps.intra.thesis.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
@@ -20,8 +20,8 @@ public class Vertex  {
 	@Index(unique=true)
 	private Long universeUserId;
 	
-	@Relationship(type = "WORKS_WITH", direction = Relationship.UNDIRECTED)
-    private  Set<Vertex> teammates;
+	@Relationship(type="WORKS_WITH", direction = Relationship.UNDIRECTED)
+    private  List<Vertex> teammates;
 	
 	
 	public Vertex() {	}
@@ -65,7 +65,7 @@ public class Vertex  {
 
 	public void worksWith(Vertex person) {
         if (teammates == null) {
-            teammates = new HashSet<>();
+            teammates = new ArrayList<>();
         }
         teammates.add(person);
     }
@@ -76,7 +76,7 @@ public class Vertex  {
 	}
 
 
-	public Set<Vertex> getTeammates() {
+	public List<Vertex> getTeammates() {
 		return teammates;
 	}
 

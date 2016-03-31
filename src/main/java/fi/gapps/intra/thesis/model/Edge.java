@@ -6,21 +6,22 @@ import org.neo4j.ogm.annotation.Property;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 import org.neo4j.ogm.annotation.StartNode;
 
-@RelationshipEntity(type="WORKS_WITH")
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@RelationshipEntity(type = "WORKS_WITH")
 public class Edge {
-	  @GraphId   
-	  private Long relationshipId;
-	  @Property
-	  private double weight;
-	  @StartNode
-	  private Vertex src;
-	  @EndNode
-	  private Vertex dest;
+	@GraphId
+	private Long relationshipId;
+	@Property
+	private double weight;
+	@StartNode
+	private Vertex src;
+	@EndNode
+	private Vertex dest;
 
-	  
-	  public Edge() {
-	  }
-
+	public Edge() {
+	}
 
 	@Override
 	public int hashCode() {
@@ -30,7 +31,6 @@ public class Edge {
 		result = prime * result + ((src == null) ? 0 : src.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -53,7 +53,29 @@ public class Edge {
 			return false;
 		return true;
 	}
-	  
-	  
-	  
+
+	public double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+
+	public Vertex getSrc() {
+		return src;
+	}
+
+	public void setSrc(Vertex src) {
+		this.src = src;
+	}
+
+	public Vertex getDest() {
+		return dest;
+	}
+
+	public void setDest(Vertex dest) {
+		this.dest = dest;
+	}
+
 }

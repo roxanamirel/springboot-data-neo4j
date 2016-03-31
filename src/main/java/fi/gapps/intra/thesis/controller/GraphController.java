@@ -1,6 +1,6 @@
 package fi.gapps.intra.thesis.controller;
 
-import java.util.Set;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,20 +18,17 @@ import fi.gapps.intra.thesis.service.VertexService;
 public class GraphController {
 
 	@Autowired
-	VertexService vertexService;
+	private VertexService vertexService;
 
 	@Transactional
 	@RequestMapping(value = "vertex", method = RequestMethod.POST, consumes = "application/json")
-	public Vertex addVertex(@RequestBody Vertex vertex) {
-//		Vertex old = vertexService.findByEmail(vertex.getEmail());
-//		if (old != null) {
-//			for (Vertex v : vertex.getTeammates()) {
-//				old.worksWith(v);
-//			}
-//			return vertexService.create(old);
-//		} else {
-			return vertexService.create(vertex);
-//		}
+	public void addVertex(@RequestBody List<Vertex> vertices) {
+		for (Vertex v : vertices) {
+			Vertex old = vertexService.findByEmail(v.getEmail());
+			if (old == null) {
+				vertexService.create(v);
+			}
+		}
 
 	}
 
@@ -43,9 +40,8 @@ public class GraphController {
 
 	@Transactional(readOnly = true)
 	@RequestMapping(value = "vertex/teammate", method = RequestMethod.GET)
-	public Set<Vertex> findTeammates(@PathVariable("id") Long id) {
+	public List<Vertex> findTeammates(@PathVariable("id") Long id) {
 		Vertex v = vertexService.findById(id);
 		return v.getTeammates();
 	}
-
 }
