@@ -22,7 +22,7 @@ public class Vertex  {
 	@Index(unique=true)
 	private Long universeUserId;
 	
-	@Relationship(type="WORKS_WITH", direction = Relationship.UNDIRECTED)
+	@Relationship(type="WORKS_WITH", direction = Relationship.OUTGOING)
     private  List<Vertex> teammates;
 	
 	
