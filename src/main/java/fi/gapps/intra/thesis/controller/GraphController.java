@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fi.gapps.intra.thesis.model.Vertex;
@@ -37,11 +39,12 @@ public class GraphController {
 	public Iterable<Vertex> getAllVertices() {
 		return vertexService.findAll();
 	}
-
+	
 	@Transactional(readOnly = true)
-	@RequestMapping(value = "vertex/teammate", method = RequestMethod.GET)
-	public List<Vertex> findTeammates(@PathVariable("id") Long id) {
-		Vertex v = vertexService.findById(id);
-		return v.getTeammates();
+	@RequestMapping(value = "vertex/teamates", method = RequestMethod.GET)
+	public List<String> getCommunity(@RequestHeader (name="email") String email) {
+		System.out.println("Email " + email);
+		return vertexService.getCommunity(email);
 	}
+
 }

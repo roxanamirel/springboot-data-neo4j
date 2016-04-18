@@ -2,6 +2,7 @@ package fi.gapps.intra.thesis.service;
 
 import fi.gapps.intra.thesis.model.Vertex;
 import java.lang.Iterable;
+import java.util.List;
 
 
 public interface VertexService {
@@ -17,4 +18,6 @@ public interface VertexService {
 	Vertex findByEmail(String email);
 
 	Iterable<Vertex> findAll();
+	
+	List<String> getCommunity(String email);
 }

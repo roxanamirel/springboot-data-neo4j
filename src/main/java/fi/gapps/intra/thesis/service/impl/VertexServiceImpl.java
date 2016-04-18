@@ -5,6 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.Iterable;
+import java.util.ArrayList;
+import java.util.List;
+
+import fi.gapps.intra.thesis.model.Edge;
 import fi.gapps.intra.thesis.model.Vertex;
 import fi.gapps.intra.thesis.repository.VertexRepository;
 import fi.gapps.intra.thesis.service.VertexService;
@@ -45,6 +49,18 @@ public class VertexServiceImpl implements VertexService {
 	@Override
 	public Vertex findById(Long id) {
 		return vertexRepository.findOne(id);
+	}
+
+	@Override
+	public List<String> getCommunity(String email) {
+		Vertex curr = vertexRepository.findByEmail(email);
+		System.out.println("NO Edges" + curr.getTeammates().size());
+		List<String> teammates = new ArrayList<>();
+		for (Edge edge: curr.getTeammates()){
+			teammates.add(edge.getDest().getEmail());
+			
+		}
+		return teammates;
 	}
 
 }

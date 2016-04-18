@@ -23,7 +23,7 @@ public class Vertex  {
 	private Long universeUserId;
 	
 	@Relationship(type="WORKS_WITH", direction = Relationship.OUTGOING)
-    private  List<Vertex> teammates;
+    private  List<Edge> teammates;
 	
 	
 	public Vertex() {	}
@@ -65,7 +65,24 @@ public class Vertex  {
 	}
 
 
-	public void worksWith(Vertex person) {
+//	public void worksWith(Vertex person) {
+//        if (teammates == null) {
+//            teammates = new ArrayList<>();
+//        }
+//        teammates.add(person);
+//    }
+//
+//	public Vertex( String name) {
+//	
+//		this.name = name;
+//	}
+//
+//
+//	public List<Vertex> getTeammates() {
+//		return teammates;
+//	}
+	
+	public void worksWith(Edge person) {
         if (teammates == null) {
             teammates = new ArrayList<>();
         }
@@ -78,7 +95,7 @@ public class Vertex  {
 	}
 
 
-	public List<Vertex> getTeammates() {
+	public List<Edge> getTeammates() {
 		return teammates;
 	}
 
