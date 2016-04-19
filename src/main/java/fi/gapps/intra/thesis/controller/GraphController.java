@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fi.gapps.intra.thesis.model.Edge;
 import fi.gapps.intra.thesis.model.Vertex;
 import fi.gapps.intra.thesis.service.VertexService;
 
@@ -41,10 +42,17 @@ public class GraphController {
 	}
 	
 	@Transactional(readOnly = true)
-	@RequestMapping(value = "vertex/teamates", method = RequestMethod.GET)
+	@RequestMapping(value = "vertex/teammates", method = RequestMethod.GET)
 	public List<String> getCommunity(@RequestHeader (name="email") String email) {
 		System.out.println("Email " + email);
 		return vertexService.getCommunity(email);
+	}
+	
+	@Transactional(readOnly = true)
+	@RequestMapping(value = "vertex/topFriends", method = RequestMethod.GET)
+	public List<String> getTopFriends(@RequestHeader (name="email") String email) {
+		System.out.println("Email " + email);
+		return vertexService.getTopThree(email);
 	}
 
 }

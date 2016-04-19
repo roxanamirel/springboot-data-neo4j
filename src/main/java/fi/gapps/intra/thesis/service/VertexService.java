@@ -1,5 +1,6 @@
 package fi.gapps.intra.thesis.service;
 
+import fi.gapps.intra.thesis.model.Edge;
 import fi.gapps.intra.thesis.model.Vertex;
 import java.lang.Iterable;
 import java.util.List;
@@ -20,4 +21,6 @@ public interface VertexService {
 	Iterable<Vertex> findAll();
 	
 	List<String> getCommunity(String email);
+	
+	List<String> getTopThree(String email);
 }

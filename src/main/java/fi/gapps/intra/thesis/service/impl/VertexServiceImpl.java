@@ -6,12 +6,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.Iterable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import fi.gapps.intra.thesis.model.Edge;
 import fi.gapps.intra.thesis.model.Vertex;
 import fi.gapps.intra.thesis.repository.VertexRepository;
 import fi.gapps.intra.thesis.service.VertexService;
+import fi.gapps.intra.thesis.utils.EdgeComparator;
 
 @Service
 public class VertexServiceImpl implements VertexService {
@@ -54,12 +57,22 @@ public class VertexServiceImpl implements VertexService {
 	@Override
 	public List<String> getCommunity(String email) {
 		Vertex curr = vertexRepository.findByEmail(email);
-		System.out.println("NO Edges" + curr.getTeammates().size());
+		Collections.sort(curr.getTeammates(),new EdgeComparator());
 		List<String> teammates = new ArrayList<>();
-		for (Edge edge: curr.getTeammates()){
+		for(Edge edge:curr.getTeammates()){
 			teammates.add(edge.getDest().getEmail());
-			
 		}
+		return teammates;
+	}
+
+	@Override
+	public List<String> getTopThree(String email) {
+		Vertex curr = vertexRepository.findByEmail(email);
+		Collections.sort(curr.getTeammates(),new EdgeComparator());
+		List<String> teammates = new ArrayList<>();
+		teammates.add(curr.getTeammates().get(0).getDest().getEmail());
+		teammates.add(curr.getTeammates().get(1).getDest().getEmail());
+		teammates.add(curr.getTeammates().get(2).getDest().getEmail());
 		return teammates;
 	}
 
