@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fi.gapps.intra.thesis.model.Edge;
 import fi.gapps.intra.thesis.model.Vertex;
+import fi.gapps.intra.thesis.service.EdgeService;
 import fi.gapps.intra.thesis.service.VertexService;
 
 @RestController
@@ -22,19 +23,57 @@ public class GraphController {
 
 	@Autowired
 	private VertexService vertexService;
-
+	
+	@Autowired
+	private EdgeService edgeService;
 	@Transactional
-	@RequestMapping(value = "vertex", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "vertex/all", method = RequestMethod.POST, consumes = "application/json")
 	public void addVertex(@RequestBody List<Vertex> vertices) {
 		for (Vertex v : vertices) {
 			Vertex old = vertexService.findByEmail(v.getEmail());
 			if (old == null) {
 				vertexService.create(v);
+			}else{
+				for(Edge e: v.getTeammates()){
+					boolean found = false;
+					for(Edge t: old.getTeammates()){
+						if (e.equals(t)){
+							found = true;
+						}
+					}
+					if(found == false)
+					old.worksWith(e);
+				}
+			//	vertexService.create(old);
 			}
 		}
 
 	}
 
+	@Transactional
+	@RequestMapping(value = "vertex", method = RequestMethod.POST, consumes = "application/json")
+	public Vertex insert(@RequestBody Vertex v) {
+		System.out.println("POST");
+			Vertex old = vertexService.findByEmail(v.getEmail());
+			if (old == null) 
+//			{
+				return vertexService.create(v);
+//			}else{
+//				for(Edge e: v.getTeammates()){
+//					boolean found = false;
+//					for(Edge t: old.getTeammates()){
+//						if (e.equals(t)){
+//							found = true;
+//						}
+//					}
+//					if(found == false)
+//					old.worksWith(e);
+//				}
+				return old;
+			//}
+
+	}
+	
 	@Transactional(readOnly = true)
 	@RequestMapping(value = "vertex", method = RequestMethod.GET)
 	public Iterable<Vertex> getAllVertices() {
@@ -54,5 +93,18 @@ public class GraphController {
 		System.out.println("Email " + email);
 		return vertexService.getTopThree(email);
 	}
+	
+	@Transactional
+	@RequestMapping(value = "vertex/delete", method = RequestMethod.DELETE)
+	public void deleteAll() {
+		Iterable<Vertex> vertices  = vertexService.findAll();
+		for(Vertex v: vertices ){
+			vertexService.delete(v);
+		}
+		Iterable<Edge> edges = edgeService.findAll();
+		for(Edge e: edges){
+			edgeService.delete(e);
+		}
 
+	}
 }

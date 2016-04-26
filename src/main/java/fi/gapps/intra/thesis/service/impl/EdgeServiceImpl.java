@@ -18,4 +18,15 @@ public class EdgeServiceImpl implements EdgeService {
 		return edgeRepository.save(edge);
 	}
 
+	@Override
+	public Iterable<Edge> findAll() {
+		return edgeRepository.findAll();
+	}
+
+	@Override
+	public void delete(Edge edge) {
+		edgeRepository.delete(edge);
+		
+	}
+
 }

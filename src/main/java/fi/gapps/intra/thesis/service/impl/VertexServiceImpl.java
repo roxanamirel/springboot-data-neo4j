@@ -1,5 +1,6 @@
 package fi.gapps.intra.thesis.service.impl;
 
+import org.neo4j.cypher.internal.compiler.v2_2.perty.recipe.LowPriorityPrettyImplicits.textAppender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,23 +58,32 @@ public class VertexServiceImpl implements VertexService {
 	@Override
 	public List<String> getCommunity(String email) {
 		Vertex curr = vertexRepository.findByEmail(email);
-		Collections.sort(curr.getTeammates(),new EdgeComparator());
-		List<String> teammates = new ArrayList<>();
-		for(Edge edge:curr.getTeammates()){
-			teammates.add(edge.getDest().getEmail());
+		if(curr!=null && curr.getTeammates()!=null){
+			Collections.sort(curr.getTeammates(),new EdgeComparator());
+			List<String> teammates = new ArrayList<>();
+			for(Edge edge:curr.getTeammates()){
+				teammates.add(edge.getDest().getEmail());
+			}
+			return teammates;
+			
 		}
-		return teammates;
+		return new ArrayList<>();
 	}
 
 	@Override
 	public List<String> getTopThree(String email) {
 		Vertex curr = vertexRepository.findByEmail(email);
-		Collections.sort(curr.getTeammates(),new EdgeComparator());
 		List<String> teammates = new ArrayList<>();
-		teammates.add(curr.getTeammates().get(0).getDest().getEmail());
-		teammates.add(curr.getTeammates().get(1).getDest().getEmail());
-		teammates.add(curr.getTeammates().get(2).getDest().getEmail());
+		if(curr!=null && curr.getTeammates()!=null){
+			Collections.sort(curr.getTeammates(),new EdgeComparator());
+			
+			for(Edge e: curr.getTeammates()){
+				teammates.add(e.getDest().getEmail());
+			}
+		
+		}
 		return teammates;
+		
 	}
 
 }
