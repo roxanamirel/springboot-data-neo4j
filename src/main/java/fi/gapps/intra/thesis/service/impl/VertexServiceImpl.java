@@ -79,6 +79,7 @@ public class VertexServiceImpl implements VertexService {
 			
 			for(Edge e: curr.getTeammates()){
 				teammates.add(e.getDest().getEmail());
+				if(teammates.size()==3) return teammates;
 			}
 		
 		}

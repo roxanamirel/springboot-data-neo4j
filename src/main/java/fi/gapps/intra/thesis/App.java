@@ -1,5 +1,8 @@
 package fi.gapps.intra.thesis;
 
+
+import java.io.IOException;
+import fi.gapps.intra.thesis.controller.TaskQueueSample;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
 import org.springframework.boot.SpringApplication;
@@ -29,7 +32,7 @@ public class App extends Neo4jConfiguration {
 	public App() {
 		System.setProperty("username", "neo4j");
 		System.setProperty("password", "root");
-		System.setProperty("server.port", "8081");
+		System.setProperty("server.port", "80");
 	}
 
 	@Override
@@ -51,6 +54,13 @@ public class App extends Neo4jConfiguration {
 
 	public static void main(String[] args) {
 		SpringApplication.run(App.class, args);
+/*		try{
+			TaskQueueSample.run();
+		} catch (IOException e) {
+			System.err.println(e.getMessage());
+		} catch (Throwable t) {
+			t.printStackTrace();
+		}*/
 	}
 	
 }

@@ -1,15 +1,16 @@
 package fi.gapps.intra.thesis.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import fi.gapps.intra.thesis.model.Edge;
@@ -47,8 +48,21 @@ public class GraphController {
 			//	vertexService.create(old);
 			}
 		}
+	
+		System.out.println("Done");
 
 	}
+	
+	
+		@RequestMapping(value = "/community", method = RequestMethod.POST)
+		@ResponseBody
+		public void updateBatch( @RequestParam final String vertices ) throws IOException {
+			
+			System.out.println("I have been called!!!");
+			System.out.println(vertices);
+
+		}
+	
 
 	@Transactional
 	@RequestMapping(value = "vertex", method = RequestMethod.POST, consumes = "application/json")
