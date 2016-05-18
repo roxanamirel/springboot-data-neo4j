@@ -29,7 +29,13 @@ public class GraphController {
 	private EdgeService edgeService;
 	@Transactional
 	@RequestMapping(value = "vertex/all", method = RequestMethod.POST, consumes = "application/json")
-	public void addVertex(@RequestBody List<Vertex> vertices) {
+	public void addVertex(@RequestBody RequestObject reqObject) {
+		String token = reqObject.getToken();
+		if(!token.equals("fb080452-1cc9-11e6-b6ba-3e1d05defe78")){
+			System.out.println("ERROR: NOT AUTHENTICATED!!!!");
+			return;	
+		}
+		List<Vertex> vertices = reqObject.getVertices();
 		for (Vertex v : vertices) {
 			Vertex old = vertexService.findByEmail(v.getEmail());
 			if (old == null) {
