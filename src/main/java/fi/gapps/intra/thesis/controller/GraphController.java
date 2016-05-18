@@ -60,40 +60,6 @@ public class GraphController {
 	}
 	
 	
-		@RequestMapping(value = "/community", method = RequestMethod.POST)
-		@ResponseBody
-		public void updateBatch( @RequestParam final String vertices ) throws IOException {
-			
-			System.out.println("I have been called!!!");
-			System.out.println(vertices);
-
-		}
-	
-
-	@Transactional
-	@RequestMapping(value = "vertex", method = RequestMethod.POST, consumes = "application/json")
-	public Vertex insert(@RequestBody Vertex v) {
-		System.out.println("POST");
-			Vertex old = vertexService.findByEmail(v.getEmail());
-			if (old == null) 
-//			{
-				return vertexService.create(v);
-//			}else{
-//				for(Edge e: v.getTeammates()){
-//					boolean found = false;
-//					for(Edge t: old.getTeammates()){
-//						if (e.equals(t)){
-//							found = true;
-//						}
-//					}
-//					if(found == false)
-//					old.worksWith(e);
-//				}
-				return old;
-			//}
-
-	}
-	
 	@Transactional(readOnly = true)
 	@RequestMapping(value = "vertex", method = RequestMethod.GET)
 	public Iterable<Vertex> getAllVertices() {
