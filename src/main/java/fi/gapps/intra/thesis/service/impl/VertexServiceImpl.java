@@ -71,15 +71,14 @@ public class VertexServiceImpl implements VertexService {
 	}
 
 	@Override
-	public List<String> getTopThree(String email) {
+	public List<String> getTopFriends(String email, int top) {
 		Vertex curr = vertexRepository.findByEmail(email);
 		List<String> teammates = new ArrayList<>();
 		if(curr!=null && curr.getTeammates()!=null){
 			Collections.sort(curr.getTeammates(),new EdgeComparator());
 			
-			for(Edge e: curr.getTeammates()){
-				teammates.add(e.getDest().getEmail());
-				if(teammates.size()==3) return teammates;
+			for(int i=0; i<top;i++){
+				teammates.add(curr.getTeammates().get(i).getDest().getEmail());
 			}
 		
 		}

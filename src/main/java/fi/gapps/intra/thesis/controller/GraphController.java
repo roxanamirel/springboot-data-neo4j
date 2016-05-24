@@ -26,8 +26,9 @@ public class GraphController {
 	@Autowired
 	private EdgeService edgeService;
 
-	private static final String TOKEN ="fb080452-1cc9-11e6-b6ba-3e1d05defe78";
+	private static final String TOKEN = "fb080452-1cc9-11e6-b6ba-3e1d05defe78";
 	private static final String AUTH_MSG = "ERROR: NOT AUTHENTICATED!";
+
 	@Transactional
 	@RequestMapping(value = "vertex/all", method = RequestMethod.POST, consumes = "application/json")
 	public void addVertex(@RequestBody RequestObject reqObject) {
@@ -69,7 +70,7 @@ public class GraphController {
 	@RequestMapping(value = "vertex/teammates", method = RequestMethod.GET)
 	public List<String> getCommunity(@RequestHeader(name = "email") String email,
 			@RequestHeader(name = "token") String token) {
-		if(!token.equals(TOKEN)){
+		if (!token.equals(TOKEN)) {
 			System.out.println(AUTH_MSG);
 			return new ArrayList<>();
 		}
@@ -80,13 +81,13 @@ public class GraphController {
 	@Transactional(readOnly = true)
 	@RequestMapping(value = "vertex/topFriends", method = RequestMethod.GET)
 	public List<String> getTopFriends(@RequestHeader(name = "email") String email,
-			@RequestHeader(name = "token") String token) {
-		if(!token.equals(TOKEN)){
+			@RequestHeader(name = "top") Integer top, @RequestHeader(name = "token") String token) {
+		if (!token.equals(TOKEN)) {
 			System.out.println(AUTH_MSG);
 			return new ArrayList<>();
 		}
 		System.out.println("Email " + email);
-		return vertexService.getTopThree(email);
+		return vertexService.getTopFriends(email, top);
 	}
 
 	@Transactional(readOnly = true)

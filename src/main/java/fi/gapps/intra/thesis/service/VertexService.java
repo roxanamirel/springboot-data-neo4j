@@ -22,5 +22,5 @@ public interface VertexService {
 	
 	List<String> getCommunity(String email);
 	
-	List<String> getTopThree(String email);
+	List<String> getTopFriends(String email, int top);
 }
