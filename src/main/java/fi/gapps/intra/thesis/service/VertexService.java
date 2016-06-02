@@ -1,9 +1,8 @@
 package fi.gapps.intra.thesis.service;
 
-import fi.gapps.intra.thesis.model.Edge;
-import fi.gapps.intra.thesis.model.Vertex;
-import java.lang.Iterable;
 import java.util.List;
+
+import fi.gapps.intra.thesis.model.Vertex;
 
 
 public interface VertexService {

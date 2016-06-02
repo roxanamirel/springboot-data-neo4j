@@ -1,7 +1,5 @@
 package fi.gapps.intra.thesis.repository;
 
-import java.util.List;
-
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.stereotype.Repository;
 
