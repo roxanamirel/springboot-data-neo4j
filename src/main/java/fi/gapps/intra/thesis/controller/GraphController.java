@@ -32,6 +32,8 @@ public class GraphController {
 	@Transactional
 	@RequestMapping(value = "vertex/all", method = RequestMethod.POST, consumes = "application/json")
 	public void addVertex(@RequestBody RequestObject reqObject) {
+		Long debugStart;
+		debugStart = System.currentTimeMillis();
 		String token = reqObject.getToken();
 		if (!token.equals(TOKEN)) {
 			System.out.println(AUTH_MSG);
@@ -56,7 +58,8 @@ public class GraphController {
 			}
 		}
 
-		System.out.println("Done");
+		if (debugStart != null)
+			System.out.println("***[DEBUG TIMER] " + ": " + (System.currentTimeMillis() - debugStart ) + " ms [DEBUG TIMER]***");
 
 	}
 
