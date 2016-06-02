@@ -59,6 +59,11 @@ public class GraphController {
 		for (Vertex v : vertices) {
 			Vertex old = vertexService.findByEmail(v.getEmail());
 			if (old == null) {
+				for (Edge e : v.getTeammates()) {
+					System.out.println(e.getSrc());
+					System.out.println(e.getDest());
+					System.out.println(e.getWeight());
+				}
 				vertexService.create(v);
 			} else {
 				for (Edge e : v.getTeammates()) {
