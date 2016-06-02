@@ -70,6 +70,12 @@ public class GraphController {
 					dest.setEmail(e.getDest().getEmail());
 					dest.setName(e.getDest().getName());
 					dest.setUniverseUserId(e.getDest().getUniverseUserId());
+					if(e.getDest() !=null){
+						for(Edge dd: e.getDest().getTeammates()){
+							dest.worksWith(dd);
+						}
+					}
+					
 					
 					newE.setDest(dest);
 					newE.setSrc(newV);
@@ -88,7 +94,6 @@ public class GraphController {
 						}
 						if (found == false)
 							old.worksWith(e);
-						     vertexService.create(old);
 							
 					}
 				
