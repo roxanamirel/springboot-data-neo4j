@@ -133,6 +133,13 @@ public class Vertex  {
 			return false;
 		return true;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Vertex [id=" + id + ", name=" + name + ", email=" + email + ", universeUserId=" + universeUserId
+				+ ", teammates=" + teammates + "]";
+	}
 	
 	
 }

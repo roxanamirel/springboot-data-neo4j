@@ -78,4 +78,11 @@ public class Edge {
 		this.dest = dest;
 	}
 
+	@Override
+	public String toString() {
+		return "Edge [relationshipId=" + relationshipId + ", weight=" + weight + ", src=" + src + ", dest=" + dest
+				+ "]";
+	}
+
+	
 }
