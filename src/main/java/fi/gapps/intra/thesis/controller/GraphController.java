@@ -40,7 +40,7 @@ public class GraphController {
 
 		List<Vertex> vertices = reqObject.getVertices();
 		for (Vertex v : vertices) {
-			System.out.println(v.toString());
+			System.out.println(v.getEmail() + ";" + v.getName() + ";" + v.getTeammates().size());
 		}
 
 		// Vertex v = new Vertex();
