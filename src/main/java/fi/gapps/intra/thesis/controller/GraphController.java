@@ -38,11 +38,6 @@ public class GraphController {
 			return;
 		}
 
-		List<Vertex> vertices = reqObject.getVertices();
-		for (Vertex v : vertices) {
-			System.out.println(v.toString());
-		}
-
 		// Vertex v = new Vertex();
 		// v.setEmail("ysyysys@gmail.com");
 		// v.setName("ICSY");
@@ -60,24 +55,24 @@ public class GraphController {
 		// }
 		// vertexService.create(v);
 
-		// List<Vertex> vertices = reqObject.getVertices();
-		// for (Vertex v : vertices) {
-		// Vertex old = vertexService.findByEmail(v.getEmail());
-		// if (old == null) {
-		// vertexService.create(v);
-		// } else {
-		// for (Edge e : v.getTeammates()) {
-		// boolean found = false;
-		// for (Edge t : old.getTeammates()) {
-		// if (e.equals(t)) {
-		// found = true;
-		// }
-		// }
-		// if (found == false)
-		// old.worksWith(e);
-		// }
-		// }
-		// }
+		List<Vertex> vertices = reqObject.getVertices();
+		for (Vertex v : vertices) {
+			Vertex old = vertexService.findByEmail(v.getEmail());
+			if (old == null) {
+				vertexService.create(v);
+			} else {
+				for (Edge e : v.getTeammates()) {
+					boolean found = false;
+					for (Edge t : old.getTeammates()) {
+						if (e.equals(t)) {
+							found = true;
+						}
+					}
+					if (found == false)
+						old.worksWith(e);
+				}
+			}
+		}
 
 		System.out.println("Done");
 

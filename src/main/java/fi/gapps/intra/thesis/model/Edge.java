@@ -6,6 +6,7 @@ import org.neo4j.ogm.annotation.Property;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 import org.neo4j.ogm.annotation.StartNode;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -66,6 +67,7 @@ public class Edge {
 		return src;
 	}
 
+	@JsonIgnore
 	public void setSrc(Vertex src) {
 		this.src = src;
 	}
