@@ -67,7 +67,6 @@ public class Edge {
 		return src;
 	}
 
-	@JsonIgnore
 	public void setSrc(Vertex src) {
 		this.src = src;
 	}
