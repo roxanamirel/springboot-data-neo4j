@@ -82,7 +82,7 @@ public class GraphController {
 					boolean found = false;
 					if(old.getTeammates()!=null){
 						for (Edge t : old.getTeammates()) {
-							if (e.equals(t)) {
+							if (e.getDest().getEmail().equals(t.getDest().getEmail())) {
 								found = true;
 							}
 						}
