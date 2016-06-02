@@ -80,13 +80,16 @@ public class GraphController {
 			} else {
 				for (Edge e : v.getTeammates()) {
 					boolean found = false;
-					for (Edge t : old.getTeammates()) {
-						if (e.equals(t)) {
-							found = true;
+					if(old.getTeammates()!=null){
+						for (Edge t : old.getTeammates()) {
+							if (e.equals(t)) {
+								found = true;
+							}
 						}
+						if (found == false)
+							old.worksWith(e);
 					}
-					if (found == false)
-						old.worksWith(e);
+				
 				}
 			}
 		}
