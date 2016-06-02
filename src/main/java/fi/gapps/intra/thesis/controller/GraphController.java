@@ -60,9 +60,11 @@ public class GraphController {
 			Vertex old = vertexService.findByEmail(v.getEmail());
 			if (old == null) {
 				for (Edge e : v.getTeammates()) {
+					System.out.println("Teammates of " + v.getEmail());
 					System.out.println(e.getSrc());
 					System.out.println(e.getDest());
 					System.out.println(e.getWeight());
+					System.out.println("----------------------------");
 				}
 				vertexService.create(v);
 			} else {
