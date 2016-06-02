@@ -23,7 +23,7 @@ public class VertexServiceImpl implements VertexService {
 	@Override
 	@Transactional
 	public Vertex create(Vertex vertex) {
-		return vertexRepository.save(vertex);
+		return vertexRepository.save(vertex, 1);
 	}
 
 	@Override
