@@ -37,24 +37,41 @@ public class GraphController {
 			System.out.println(AUTH_MSG);
 			return;
 		}
-		List<Vertex> vertices = reqObject.getVertices();
-		for (Vertex v : vertices) {
-			Vertex old = vertexService.findByEmail(v.getEmail());
-			if (old == null) {
-				vertexService.create(v);
-			} else {
-				for (Edge e : v.getTeammates()) {
-					boolean found = false;
-					for (Edge t : old.getTeammates()) {
-						if (e.equals(t)) {
-							found = true;
-						}
-					}
-					if (found == false)
-						old.worksWith(e);
-				}
-			}
+		Vertex v = new Vertex();
+		v.setEmail("ysyysys@gmail.com");
+		v.setName("ICSY");
+		v.setUniverseUserId(3l);
+		for(int i=0;i<40;i++){
+			Vertex vv = new Vertex();
+			vv.setEmail("email" + i + "@yahoo.com");
+			vv.setName("NAme" + i);
+			vv.setUniverseUserId(Long.valueOf(i));
+			Edge edge = new Edge();
+			edge.setDest(vv);
+			edge.setSrc(v);
+			edge.setWeight(i);
+			v.worksWith(edge);
 		}
+		vertexService.create(v);
+		
+//		List<Vertex> vertices = reqObject.getVertices();
+//		for (Vertex v : vertices) {
+//			Vertex old = vertexService.findByEmail(v.getEmail());
+//			if (old == null) {
+//				vertexService.create(v);
+//			} else {
+//				for (Edge e : v.getTeammates()) {
+//					boolean found = false;
+//					for (Edge t : old.getTeammates()) {
+//						if (e.equals(t)) {
+//							found = true;
+//						}
+//					}
+//					if (found == false)
+//						old.worksWith(e);
+//				}
+//			}
+//		}
 
 		System.out.println("Done");
 

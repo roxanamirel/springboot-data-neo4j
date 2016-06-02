@@ -1,15 +1,12 @@
 package fi.gapps.intra.thesis.service.impl;
 
-import org.neo4j.cypher.internal.compiler.v2_2.perty.recipe.LowPriorityPrettyImplicits.textAppender;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.lang.Iterable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 import fi.gapps.intra.thesis.model.Edge;
 import fi.gapps.intra.thesis.model.Vertex;
