@@ -60,14 +60,18 @@ public class GraphController {
 			Vertex old = vertexService.findByEmail(v.getEmail());
 			if (old == null) {
 				System.out.println("Teammates of " + v.getEmail());
+				Vertex newV = new Vertex();
+				newV.setEmail(v.getEmail());
+				newV.setName(v.getName());
+				newV.setUniverseUserId(v.getUniverseUserId());
 				for (Edge e : v.getTeammates()) {
-					System.out.println(e.getSrc().getEmail());
-					System.out.println(e.getDest().getEmail());
-					System.out.println(e.getWeight());
-					System.out.println("----------------------------");
+					Edge newE = new Edge();
+					newE.setDest(e.getDest());
+					newE.setSrc(newV);
+					newE.setWeight(e.getWeight());
+					newV.worksWith(newE);
 				}
-				System.out.println("Done with the edges");
-				vertexService.create(v);
+				vertexService.create(newV);
 			} else {
 				for (Edge e : v.getTeammates()) {
 					boolean found = false;
