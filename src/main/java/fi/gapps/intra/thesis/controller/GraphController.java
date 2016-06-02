@@ -59,13 +59,14 @@ public class GraphController {
 		for (Vertex v : vertices) {
 			Vertex old = vertexService.findByEmail(v.getEmail());
 			if (old == null) {
+				System.out.println("Teammates of " + v.getEmail());
 				for (Edge e : v.getTeammates()) {
-					System.out.println("Teammates of " + v.getEmail());
-					System.out.println(e.getSrc());
-					System.out.println(e.getDest());
+					System.out.println(e.getSrc().getEmail());
+					System.out.println(e.getDest().getEmail());
 					System.out.println(e.getWeight());
 					System.out.println("----------------------------");
 				}
+				System.out.println("Done with the edges");
 				vertexService.create(v);
 			} else {
 				for (Edge e : v.getTeammates()) {
