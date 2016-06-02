@@ -59,7 +59,7 @@ public class GraphController {
 		for (Vertex v : vertices) {
 			Vertex old = vertexService.findByEmail(v.getEmail());
 			if (old == null){
-				if (!v.getEmail().contains("aaron")) {
+				
 				System.out.println("Teammates of " + v.getEmail());
 				Vertex newV = new Vertex();
 				newV.setEmail(v.getEmail());
@@ -84,24 +84,27 @@ public class GraphController {
 					newV.worksWith(newE);
 				}
 				vertexService.create(newV);
-				}else{
-					System.out.println("skip aaron");
-				}
 			} else {
+				System.out.println("Adding teammates of " + v.getEmail());
+				if(v.getTeammates()!=null){
 				for (Edge e : v.getTeammates()) {
 					boolean found = false;
 					if(old.getTeammates()!=null){
 						for (Edge t : old.getTeammates()) {
 							if (e.getDest().getEmail().equals(t.getDest().getEmail())) {
 								found = true;
+								System.out.println("Already a teammate of " + e.getDest().getEmail());
 							}
 						}
 						if (found == false)
+							System.out.println("Adding teammate " + e.getDest().getEmail());
 							old.worksWith(e);
 							
 					}
 				
 				}
+			}else{
+				System.out.println("no teamamtes");
 			}
 		}
 
