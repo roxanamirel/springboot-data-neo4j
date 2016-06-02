@@ -66,7 +66,12 @@ public class GraphController {
 				newV.setUniverseUserId(v.getUniverseUserId());
 				for (Edge e : v.getTeammates()) {
 					Edge newE = new Edge();
-					newE.setDest(e.getDest());
+					Vertex dest =  new Vertex();
+					dest.setEmail(e.getDest().getEmail());
+					dest.setName(e.getDest().getName());
+					dest.setUniverseUserId(e.getDest().getUniverseUserId());
+					
+					newE.setDest(dest);
 					newE.setSrc(newV);
 					newE.setWeight(e.getWeight());
 					newV.worksWith(newE);
