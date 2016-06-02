@@ -88,6 +88,8 @@ public class GraphController {
 						}
 						if (found == false)
 							old.worksWith(e);
+						     vertexService.create(old);
+							
 					}
 				
 				}
