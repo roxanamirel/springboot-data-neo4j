@@ -58,8 +58,8 @@ public class GraphController {
 		List<Vertex> vertices = reqObject.getVertices();
 		for (Vertex v : vertices) {
 			Vertex old = vertexService.findByEmail(v.getEmail());
-			if (old == null){
-				
+			if (old == null) {
+
 				System.out.println("Teammates of " + v.getEmail());
 				Vertex newV = new Vertex();
 				newV.setEmail(v.getEmail());
@@ -67,17 +67,16 @@ public class GraphController {
 				newV.setUniverseUserId(v.getUniverseUserId());
 				for (Edge e : v.getTeammates()) {
 					Edge newE = new Edge();
-					Vertex dest =  new Vertex();
+					Vertex dest = new Vertex();
 					dest.setEmail(e.getDest().getEmail());
 					dest.setName(e.getDest().getName());
 					dest.setUniverseUserId(e.getDest().getUniverseUserId());
-					if(e.getDest() !=null){
-						for(Edge dd: e.getDest().getTeammates()){
+					if (e.getDest() != null) {
+						for (Edge dd : e.getDest().getTeammates()) {
 							dest.worksWith(dd);
 						}
 					}
-					
-					
+
 					newE.setDest(dest);
 					newE.setSrc(newV);
 					newE.setWeight(e.getWeight());
@@ -86,25 +85,25 @@ public class GraphController {
 				vertexService.create(newV);
 			} else {
 				System.out.println("Adding teammates of " + v.getEmail());
-				if(v.getTeammates()!=null){
-				for (Edge e : v.getTeammates()) {
-					boolean found = false;
-					if(old.getTeammates()!=null){
-						for (Edge t : old.getTeammates()) {
-							if (e.getDest().getEmail().equals(t.getDest().getEmail())) {
-								found = true;
-								System.out.println("Already a teammate of " + e.getDest().getEmail());
+				if (v.getTeammates() != null) {
+					for (Edge e : v.getTeammates()) {
+						boolean found = false;
+						if (old.getTeammates() != null) {
+							for (Edge t : old.getTeammates()) {
+								if (e.getDest().getEmail().equals(t.getDest().getEmail())) {
+									found = true;
+									System.out.println("Already a teammate of " + e.getDest().getEmail());
+								}
+							}
+							if (found == false) {
+								System.out.println("Adding teammate " + e.getDest().getEmail());
+								old.worksWith(e);
 							}
 						}
-						if (found == false)
-							System.out.println("Adding teammate " + e.getDest().getEmail());
-							old.worksWith(e);
-							
 					}
-				
+				} else {
+					System.out.println("no teamamtes");
 				}
-			}else{
-				System.out.println("no teamamtes");
 			}
 		}
 
