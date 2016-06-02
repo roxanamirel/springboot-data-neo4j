@@ -58,7 +58,8 @@ public class GraphController {
 		List<Vertex> vertices = reqObject.getVertices();
 		for (Vertex v : vertices) {
 			Vertex old = vertexService.findByEmail(v.getEmail());
-			if (old == null && !v.getEmail().contains("aaron")) {
+			if (old == null){
+				if (!v.getEmail().contains("aaron")) {
 				System.out.println("Teammates of " + v.getEmail());
 				Vertex newV = new Vertex();
 				newV.setEmail(v.getEmail());
@@ -83,6 +84,9 @@ public class GraphController {
 					newV.worksWith(newE);
 				}
 				vertexService.create(newV);
+				}else{
+					System.out.println("skip aaron");
+				}
 			} else {
 				for (Edge e : v.getTeammates()) {
 					boolean found = false;
